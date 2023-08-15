@@ -8,7 +8,7 @@ Functionality:
 - sort based on popularity and price
 - filter by state
 
-## Technologie
+## Technologies
 - [Next.js](https://nextjs.org)
 - [NextAuth.js](https://next-auth.js.org)
 - [Prisma](https://prisma.io)
