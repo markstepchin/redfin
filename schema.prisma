@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Property {
+  id             Int       @id @default(autoincrement())
+  sold_date      DateTime?
+  property_type  String
+  address        String
+  city           String
+  state          String
+  zip            String
+  price          Float
+  beds           Int
+  baths          Int
+  square_feet    Int
+  lot_size       Int
+  year_built     Int
+  days_on_market Int
+  monthly_hoa    Float
+  mls_number     String
+  identifier     String
+  latitude       Float
+  longitude      Float
+  description    String?   @db.VarChar(10000)
+  comments       Comment[]
+  commentsCount  Int       @default(0)
+  likesCount     Int       @default(0)
+}
+
+model Comment {
+  id         Int      @id @default(autoincrement())
+  content    String
+  createdAt  DateTime @default(now())
+  propertyId Int
+  Property   Property @relation(fields: [propertyId], references: [id])
+}
