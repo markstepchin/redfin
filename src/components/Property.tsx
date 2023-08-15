@@ -70,16 +70,20 @@ const PropertyListing = ({
   const { mutate: mutateLike, isLoading: isLikeLoading } =
     api.property.likeProperty.useMutation({
       onSuccess: () => {
-        ctx.property.getAll.invalidate();
-        ctx.property.getPropertyDetail.invalidate({ propertyId: property.id });
+        void ctx.property.getAll.invalidate();
+        void ctx.property.getPropertyDetail.invalidate({
+          propertyId: property.id,
+        });
       },
     });
 
   const { mutate: mutateDislike, isLoading: isDislikeLoading } =
     api.property.dislikeProperty.useMutation({
       onSuccess: () => {
-        ctx.property.getAll.invalidate();
-        ctx.property.getPropertyDetail.invalidate({ propertyId: property.id });
+        void ctx.property.getAll.invalidate();
+        void ctx.property.getPropertyDetail.invalidate({
+          propertyId: property.id,
+        });
       },
     });
 
@@ -92,7 +96,7 @@ const PropertyListing = ({
           {showCommentBtn && (
             <button
               className="group flex space-x-2 rounded-3xl bg-gray-100 p-2 pr-4 hover:bg-gray-200"
-              onClick={() => router.push(`/${property.id}`)}
+              onClick={() => void router.push(`/${property.id}`)}
             >
               <ChatIcon className="stroke-gray-900 group-hover:stroke-blue-700" />{" "}
               <div className="group-hover:text-blue-700">

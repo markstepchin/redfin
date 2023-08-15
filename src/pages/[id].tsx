@@ -43,9 +43,9 @@ const PropertyDetails = () => {
 
   const { mutate: mutateComment, isLoading: isCommentSaving } =
     api.property.commentOnProperty.useMutation({
-      onSuccess: () => {
+      onSuccess: async () => {
         if (property?.id) {
-          ctx.property.getPropertyDetail.invalidate({
+          await ctx.property.getPropertyDetail.invalidate({
             propertyId: property.id,
           });
         }
@@ -70,7 +70,7 @@ const PropertyDetails = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              mutateComment({
+              void mutateComment({
                 commentContent: comment,
                 propertyId: property.id,
               });
@@ -89,8 +89,11 @@ const PropertyDetails = () => {
             Comments ({property.commentsCount})
           </h4>
           <div className="space-y-4 divide-y">
-            {property.comments?.map((c) => (
-              <div className="flex pt-3">
+            {property.comments?.map((c, i) => (
+              <div
+                className="flex pt-3"
+                key={`${i}-${c.createdAt.toDateString()}`}
+              >
                 <div className="rounded-full bg-gray-50">
                   <UserAvatar className="stroke-gray-400" />
                 </div>

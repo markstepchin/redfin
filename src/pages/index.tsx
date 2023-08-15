@@ -74,8 +74,8 @@ export default function Home() {
               <>Loading...</>
             ) : (
               data?.properties.map((p) => (
-                <div className="shadow">
-                  <Property property={p} key={p.id} showCommentBtn={true} />
+                <div className="shadow" key={p.id}>
+                  <Property property={p} showCommentBtn={true} />
                 </div>
               ))
             )}
